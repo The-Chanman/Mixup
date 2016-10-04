@@ -14,12 +14,13 @@ htmlProductFormat = []
 for product in productList:
 	htmlProductFormat.append(product.replace(" ", "-"))
 
-print htmlProductFormat
-
-page = requests.get('https://www.amazon.com/s/&field-keywords=', htmlProductFormat[0])
-print page
+print htmlProductFormat[0]
+print 'https://canopy.co/shop/'+htmlProductFormat[0]
+page = requests.get('https://canopy.co/shop/'+htmlProductFormat[0])
+print page.content
 
 tree = html.fromstring(page.content)
+print tree
 
-productOptions = tree.xpath('//div[@id="atfResults"]')
+productOptions = tree.xpath('//div[@class="product-details-name"]/text()')
 print productOptions
